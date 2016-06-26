@@ -23,12 +23,23 @@ func pushInfo(f string, args ...interface{}) {
 //############################################################################
 func main() {
 
-	if len(os.Args) != 2 {
+	if len(os.Args) < 2 {
 		pushError("unrecognized input arguments: [usage: yamllinter <filetolint.yaml>]")
 	}
 
-	filePath := os.Args[1]
-	pushInfo("input file is %q", filePath)
+	var filePath string
+	verbose := false
+
+	if os.Args[1] == "-v" {
+		verbose = true
+		filePath = os.Args[2]
+	} else {
+		filePath = os.Args[1]
+	}
+
+	if verbose {
+		pushInfo("input file is %q", filePath)
+	}
 
 	if _, err := os.Stat(filePath); err != nil {
 		pushError("input file not found")
