@@ -16,15 +16,19 @@ func pushError(f string, args ...interface{}) {
 }
 
 //############################################################################
+func pushInfo(f string, args ...interface{}) {
+	applog.Infof(fmt.Sprintf("yamllinter: %s", f), args...)
+}
+
+//############################################################################
 func main() {
 
-	args := os.Args[1:]
-
-	if len(args) != 1 {
+	if len(os.Args) != 2 {
 		pushError("unrecognized input arguments: [usage: yamllinter <filetolint.yaml>]")
 	}
 
-	filePath := args[0]
+	filePath := os.Args[1]
+	pushInfo("input file is %q", filePath)
 
 	if _, err := os.Stat(filePath); err != nil {
 		pushError("input file not found")
