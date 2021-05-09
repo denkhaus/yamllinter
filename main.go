@@ -5,26 +5,25 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/denkhaus/tcgl/applog"
 	"gopkg.in/yaml.v2"
 )
 
 //############################################################################
 func pushError(f string, args ...interface{}) {
-	applog.Errorf(fmt.Sprintf("yamllinter: %s", f), args...)
+	fmt.Printf(fmt.Sprintf("yamllinter: %s", f), args...)
 	os.Exit(1)
 }
 
 //############################################################################
 func pushInfo(f string, args ...interface{}) {
-	applog.Infof(fmt.Sprintf("yamllinter: %s", f), args...)
+	fmt.Printf(fmt.Sprintf("yamllinter: %s", f), args...)
 }
 
 //############################################################################
 func main() {
 
 	if len(os.Args) < 2 {
-		pushError("unrecognized input arguments: [usage: yamllinter <filetolint.yaml>]")
+		pushError("unrecognized input arguments: [usage: yamllinter <*.yaml>]")
 	}
 
 	var filePath string
